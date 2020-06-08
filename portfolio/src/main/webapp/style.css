@@ -4,6 +4,41 @@
   width: 650px;
 }
 
-#greeting-container {
+#quote-container {
   margin-top: 20px;
+  color:whitesmoke;
+}
+
+#comment-container {
+  margin-top: 20px;
+  color:whitesmoke;
+}
+
+body{
+    background-color: #537895;
+    background-image: linear-gradient(315deg, #537895 0%, #09203f 74%);
+
+}
+
+h1{
+    color: whitesmoke;
+}
+h3{
+    color: whitesmoke;
+}
+
+p{
+    color: whitesmoke;
+}
+
+.image-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.image-thumbnails img {
+  margin: 10px;
+  max-height: 200px;
+  max-width: 200px;
 }

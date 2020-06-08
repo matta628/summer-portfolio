@@ -13,16 +13,27 @@
 // limitations under the License.
 
 /**
- * Adds a random greeting to the page.
+ * Adds a random Parks & Rec quote to the page.
  */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+function addRandomQuote() {
+  const quotes =
+      ['"I once worked with a guy for three years and never learned his name. Best friend I ever had. We still never talk sometimes." -Ron Swanson', 
+      '\"Everything hurts and I\'m dying.\" -Leslie Knope', 
+      '"No matter what I do, literally nothing bad can happen to me. I\'m like a white, male US Senator." -Leslie Knope', 
+      '"Treat yo self." -Donna Meagle & Tom Haverford',
+      '“If I had to have a stripper’s name, it would be equality.” -Leslie Knope',
+      '“If there were more food and fewer people, this would be a perfect party.” -Ron Swanson',
+      '“The only things I like are dogs, sleeping late and weird birthmarks.” -April Ludgate',
+      '“Leslie, I typed your symptoms into the thing up here, and it says you could have network connectivity problems.” -Andy Dwyer',
+      '“My marbles are full of mouth today.” -Jerry (aka Gary aka Larry) Gergich',
+      '“Calc-you-later.” -Ben Wyatt',
+      '“I am 100% certain that I am 0% sure of what I’m going to do.” -Chris Trager',
+      '“I’m putting myself out there, meeting new people, having some casual fun and it is...awkward.” -Ann Perkins'];
 
   // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+  const quote = quotes[Math.floor(Math.random() * quotes.length)];
 
   // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+  const quoteContainer = document.getElementById('quote-container');
+  quoteContainer.innerText = quote;
 }
