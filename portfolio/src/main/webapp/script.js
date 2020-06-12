@@ -37,3 +37,11 @@ function addRandomQuote() {
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
 }
+
+function addData(){
+    fetch("/data")
+        .then(response => response.text())
+        .then((data) =>{
+            document.getElementById("data-container").innerHTML = data;
+        });
+}
