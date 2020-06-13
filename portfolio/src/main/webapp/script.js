@@ -38,10 +38,22 @@ function addRandomQuote() {
   quoteContainer.innerText = quote;
 }
 
+/** Adds messages (data) to website */
 function addData(){
     fetch("/data")
-        .then(response => response.text())
-        .then((data) =>{
-            document.getElementById("data-container").innerHTML = data;
+        .then(response => response.json())
+        .then((msgs) =>{
+            const dataContainer = document.getElementById("data-container");
+            dataContainer.innerHTML = '';
+            msgs.forEach( msg => {
+                dataContainer.appendChild(createListElement(msg));  
+            });
         });
+}
+
+/** Creates an <li> element containing text,  */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }
