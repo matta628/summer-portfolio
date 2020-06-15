@@ -31,14 +31,7 @@ public class DataServlet extends HttpServlet {
   
   @Override
   public void init(){
-       messages = new ArrayList<>();
-       messages.add("c++");
-       messages.add("java");
-       messages.add("python");
-       messages.add("c");
-       messages.add("javascript");
-       messages.add("rust");
-       
+       messages = new ArrayList<>();       
   }
 
   @Override
@@ -49,5 +42,11 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(json);
   }
 
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      String comment = request.getParameter("comment-container");
+      messages.add(comment);
+      response.sendRedirect("/index.html");
+  }
 
 }
