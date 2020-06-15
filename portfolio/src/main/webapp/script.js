@@ -42,18 +42,18 @@ function addRandomQuote() {
 function addData(){
     fetch("/data")
         .then(response => response.json())
-        .then((msgs) =>{
+        .then((cmts) =>{
             const dataContainer = document.getElementById("data-container");
             dataContainer.innerHTML = '';
-            msgs.forEach( msg => {
-                dataContainer.appendChild(createListElement(msg));  
+            cmts.forEach( cmt => {
+                dataContainer.appendChild(createListElement(cmt));  
             });
         });
 }
 
 /** Creates an <li> element containing text,  */
-function createListElement(text) {
+function createListElement(cmt) {
   const liElement = document.createElement('li');
-  liElement.innerText = text;
+  liElement.innerText = cmt.comment;
   return liElement;
 }
