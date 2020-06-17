@@ -37,3 +37,23 @@ function addRandomQuote() {
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
 }
+
+/** Adds messages (data) to website */
+function addData(){
+    fetch("/data")
+        .then(response => response.json())
+        .then((cmts) =>{
+            const dataContainer = document.getElementById("data-container");
+            dataContainer.innerHTML = '';
+            cmts.forEach( cmt => {
+                dataContainer.appendChild(createListElement(cmt));  
+            });
+        });
+}
+
+/** Creates an <li> element containing text,  */
+function createListElement(cmt) {
+  const liElement = document.createElement('li');
+  liElement.innerText = cmt.comment;
+  return liElement;
+}
