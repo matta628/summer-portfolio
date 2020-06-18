@@ -26,15 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /** Authentication Servlet 
 
-
-Hide the comments form by default. Modify your script.js file to fetch the login status 
-from the servlet. If the user is logged in, unhide the form. If the user is not logged in,
-display a login link.
-
-Test that this works by running a dev server and making sure your page shows the right content.
-
-When you get this step working, create a pull request and send it to your advisor for review!
-
 Modify your DataServlet.java file to get the current user's email address, and store it 
 alongside the text of the comment.
 

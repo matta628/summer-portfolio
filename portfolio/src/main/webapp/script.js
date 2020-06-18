@@ -59,7 +59,7 @@ function addData(){
             }
             else{
                 document.getElementById("form").style.display="none";
-                document.getElementById("login").innerHTML = "<p>Login <a href=\"" + authentication.login + "\">here</a>.</p>";
+                document.getElementById("login").innerHTML = "<p>Login to view comments <a href=\"" + authentication.login + "\">here</a>.</p>";
             }
         });
 
@@ -67,8 +67,8 @@ function addData(){
 }
 
 /** Creates an <li> element containing text,  */
-function createListElement(text) {
+function createListElement(comment) {
   const liElement = document.createElement('li');
-  liElement.innerText = text.comment;
+  liElement.innerText = "<" + comment.email + ">: " + comment.text;
   return liElement;
 }
