@@ -56,19 +56,39 @@ function addData(){
                         });
                     });
                 document.getElementById("login").innerHTML = "<p>Logout <a href=\"" + authentication.logout + "\">here</a>.</p>";
+                fetch('/display-pets')
+                    .then(response => response.json())
+                    .then((display) => {
+                        const petPicsElement = document.getElementById('pets');
+                        petPicsElement.innerHTML = '';
+                        pets = display.pets;
+                        pets.forEach((pet) => {
+                            petPicsElement.appendChild(createImgElement(pet.url));
+                        });
+                        const petForm = document.getElementById('pet-form');
+                        petForm.action = display.uploadUrl;
+                    });
             }
             else{
-                document.getElementById("form").style.display="none";
-                document.getElementById("login").innerHTML = "<p>Login to view comments <a href=\"" + authentication.login + "\">here</a>.</p>";
+                document.getElementById("comment-form").style.display="none";
+                document.getElementById("pet-form").style.display="none";
+                document.getElementById("login").innerHTML = "<p>Login to view comments & share your pets <a href=\"" + authentication.login + "\">here</a>.</p>";
             }
         });
 
 
 }
 
-/** Creates an <li> element containing text,  */
+/** Creates an <li> element containing email + comment,  */
 function createListElement(comment) {
   const liElement = document.createElement('li');
   liElement.innerText = "<" + comment.email + ">: " + comment.text;
   return liElement;
+}
+
+/** Creates <img> element */
+function createImgElement(url){
+    const imgElement = document.createElement('IMG');
+    imgElement.setAttribute('src', url);
+    return imgElement;
 }
