@@ -40,20 +40,55 @@ function addRandomQuote() {
 
 /** Adds messages (data) to website */
 function addData(){
-    fetch("/data")
+    var loggedIn = false;
+    fetch("/login")
         .then(response => response.json())
-        .then((cmts) =>{
-            const dataContainer = document.getElementById("data-container");
-            dataContainer.innerHTML = '';
-            cmts.forEach( cmt => {
-                dataContainer.appendChild(createListElement(cmt));  
-            });
+        .then( (authentication) => {
+            loggedIn = authentication.status;
+            if (loggedIn){
+                fetch("/data")
+                    .then(response => response.json())
+                    .then((comments) =>{
+                        const dataContainer = document.getElementById("data-container");
+                        dataContainer.innerHTML = '';
+                        comments.forEach( comment => {
+                            dataContainer.appendChild(createListElement(comment));  
+                        });
+                    });
+                document.getElementById("login").innerHTML = "<p>Logout <a href=\"" + authentication.logout + "\">here</a>.</p>";
+                fetch('/display-pets')
+                    .then(response => response.json())
+                    .then((display) => {
+                        const petPicsElement = document.getElementById('pets');
+                        petPicsElement.innerHTML = '';
+                        pets = display.pets;
+                        pets.forEach((pet) => {
+                            petPicsElement.appendChild(createImgElement(pet.url));
+                        });
+                        const petForm = document.getElementById('pet-form');
+                        petForm.action = display.uploadUrl;
+                    });
+            }
+            else{
+                document.getElementById("comment-form").style.display="none";
+                document.getElementById("pet-form").style.display="none";
+                document.getElementById("login").innerHTML = "<p>Login to view comments & share your pets <a href=\"" + authentication.login + "\">here</a>.</p>";
+            }
         });
+
+
 }
 
-/** Creates an <li> element containing text,  */
-function createListElement(cmt) {
+/** Creates an <li> element containing email + comment,  */
+function createListElement(comment) {
   const liElement = document.createElement('li');
-  liElement.innerText = cmt.comment;
+  liElement.innerText = "<" + comment.email + ">: " + comment.text;
   return liElement;
+}
+
+/** Creates <img> element */
+function createImgElement(url){
+    const imgElement = document.createElement('IMG');
+    imgElement.setAttribute('src', url);
+    return imgElement;
 }

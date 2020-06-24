@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-  </head>
-  <body onload="addData()">
-    <div id="content">
-        <h1>Matt Aguilar's Portfolio</h1>
-        <br>
+    <head>
+        <meta charset="UTF-8">
+        <title>My Portfolio</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body onload="addData()">
+        <div id="content">
+            <h1>Matt Aguilar's Portfolio</h1>
+            <br>
             <h3>Background</h3>
             <p> Hello! Welcome to my portfolio, where I hope you can learn a little bit about me. I'm currently a sophomore studying computer science at Binghamton University.
                 Computer science has intrigued me ever since playing Minecraft introduced me to kids who were just as interested in coding. Besides programming, I enjoy a pretty
@@ -68,14 +68,26 @@
                 <img src="images/twonine.jpg">
 	        </div>
             
-            <div id="data-container"></div>
+            <div id="login"></div>
 
-            <form action="/data" method="POST">
+            <h3>Pets</h3>
+            <p>I don't have any pets (though I would love a cat) so please share pics of yours with me!</p>
+            <div id = 'pets' class = 'image-thumbnails'> </div>
+            <form id="pet-form"  method="POST" enctype="multipart/form-data">
+                <input type="file" name="image">
+                <br/><br/>
+                <button>Submit</button>
+            </form>  
+
+            <h3>Comments</h3>
+            <div id="data-container"></div>
+            <form id= "comment-form" action="/data" method="POST">
                 <p>Feel free to leave a comment! :)</p>
                 <textarea name="comment-container">Enter Comment.</textarea>
                 <br/><br/>
                 <input type="submit" />
             </form>
+          
     </div>
   </body>
 </html>
