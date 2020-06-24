@@ -34,7 +34,17 @@ public final class FindMeetingQuery {
         }
         busy.sort(TimeRange.ORDER_BY_END);
 
+        //eliminate overlap
+        for (int i = 1; i < busy.size(); i++){
+            if (busy.get(i).overlaps(busy.get(i-1))){
+                busy.set(i, TimeRange.fromStartEnd(busy.get(i-1).start(), 
+                    busy.get(i).start() + busy.get(i).duration(), false));
+                busy.remove(i-1);
+                i--;
+            }
+        }
 
+        //make meetings
         List<TimeRange> times = new ArrayList<TimeRange>();
         int start = TimeRange.START_OF_DAY;
         for (TimeRange b : busy){
