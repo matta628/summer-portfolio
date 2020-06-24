@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 public final class FindMeetingQuery {
     public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
@@ -30,7 +31,15 @@ public final class FindMeetingQuery {
         //get attendee event timeranges in order by end time
         List<TimeRange> busy = new ArrayList<>();
         for (Event e : events){
-            busy.add(e.getWhen());
+            boolean relevant = false;
+            for (String attn : request.getAttendees()){
+                if (e.getAttendees().contains(attn)){
+                    relevant = true;
+                }
+            }
+            if (relevant){
+                busy.add(e.getWhen());
+            }
         }
         busy.sort(TimeRange.ORDER_BY_END);
 
@@ -38,7 +47,6 @@ public final class FindMeetingQuery {
             //eliminate nested events
             if (busy.get(i).contains(busy.get(i-1))){
                 busy.remove(i-1);
-                System.out.println("NESTED!");
                 i--;
             }
 
@@ -52,15 +60,20 @@ public final class FindMeetingQuery {
 
         }
 
-
-        //make meetings
-        List<TimeRange> times = new ArrayList<TimeRange>();
+        //free meeting slots
+        List<TimeRange> free = new ArrayList<TimeRange>();
         int start = TimeRange.START_OF_DAY;
         for (TimeRange b : busy){
-            times.add(TimeRange.fromStartEnd(start, b.start(), false));
+            free.add(TimeRange.fromStartEnd(start, b.start(), false));
             start = b.start() + b.duration();
         }
-        times.add(TimeRange.fromStartEnd(start, TimeRange.END_OF_DAY, true));
+        free.add(TimeRange.fromStartEnd(start, TimeRange.END_OF_DAY, true));
+
+        //filter free times that are less than the requested meeting duration time
+        List<TimeRange> times = free.stream()
+            .filter(time -> (time.duration() >= request.getDuration()))
+            .collect(Collectors.toList());
+
         return times;
     }
 }
